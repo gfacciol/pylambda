@@ -44,10 +44,12 @@ if __name__ == "__main__":
     variables = {}
     for i in range(len(infiles)+1):
         try:
-            # evaluate all the expressions but return only the result of the last one
-            for expr in expression.split(';'):
+            # execute all the expressions but return only the result of the last one (evaluate)
+            expressionlist = [x.lstrip() for x in expression.split(';')]
+            for expr in expressionlist[:-1]:
                 #ev = eval(expr, {}, variables)
-                ev = eval(expr)
+                exec(expr)
+            ev = eval(expressionlist[-1])
             # write output
             write_output(outfile, ev)
             break
